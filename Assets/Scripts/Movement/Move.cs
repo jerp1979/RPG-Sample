@@ -19,13 +19,18 @@ public class Move : MonoBehaviour
 
   private void Update()
   {
+
+
+    UpdateAnimator();
+    // Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
+  }
+
+  private void LateUpdate()
+  {
     if (Input.GetMouseButton(0))
     {
       MoveToCursor();
     }
-
-    UpdateAnimator();
-    // Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
   }
 
   private void MoveToCursor()
