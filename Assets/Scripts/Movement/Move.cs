@@ -1,40 +1,42 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Move : MonoBehaviour
+namespace RPG.Movement
 {
-  // [SerializeField] GameObject target;
-
-  Ray lastRay;
-  NavMeshAgent agent;
-  Animator animator;
-
-  private void Start()
+  public class Move : MonoBehaviour
   {
-    agent = GetComponent<NavMeshAgent>();
-    animator = GetComponent<Animator>();
-    // agent.destination = target.transform.position;
-  }
+    // [SerializeField] GameObject target;
 
-  private void Update()
-  {
-    UpdateAnimator();
-    // Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
-  }
+    Ray lastRay;
+    NavMeshAgent agent;
+    Animator animator;
 
+    private void Start()
+    {
+      agent = GetComponent<NavMeshAgent>();
+      animator = GetComponent<Animator>();
+      // agent.destination = target.transform.position;
+    }
 
-  public void MoveTo(Vector3 destination)
-  {
-    agent.destination = destination;
-  }
+    private void Update()
+    {
+      UpdateAnimator();
+      // Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
+    }
 
-  private void UpdateAnimator()
-  {
-    Vector3 velocity = agent.velocity;
-    Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+    public void MoveTo(Vector3 destination)
+    {
+      agent.destination = destination;
+    }
 
-    float speed = localVelocity.z;
+    private void UpdateAnimator()
+    {
+      Vector3 velocity = agent.velocity;
+      Vector3 localVelocity = transform.InverseTransformDirection(velocity);
 
-    animator.SetFloat("forwardSpeed", speed);
+      float speed = localVelocity.z;
+
+      animator.SetFloat("forwardSpeed", speed);
+    }
   }
 }
