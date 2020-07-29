@@ -9,19 +9,23 @@ public class Move : MonoBehaviour
   Ray lastRay;
 
   NavMeshAgent agent;
+  Animator animator;
   private void Start()
   {
     agent = GetComponent<NavMeshAgent>();
+    animator = GetComponent<Animator>();
     // agent.destination = target.transform.position;
   }
 
   private void Update()
   {
-    if (Input.GetMouseButtonDown(0))
+    if (Input.GetMouseButton(0))
     {
       MoveToCursor();
     }
-    Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
+
+    UpdateAnimator();
+    // Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
   }
 
   private void MoveToCursor()
@@ -36,5 +40,15 @@ public class Move : MonoBehaviour
     {
       agent.destination = hit.point;
     }
+  }
+
+  private void UpdateAnimator()
+  {
+    Vector3 velocity = agent.velocity;
+    Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+
+    float speed = localVelocity.z;
+
+    animator.SetFloat("forwardSpeed", speed);
   }
 }
