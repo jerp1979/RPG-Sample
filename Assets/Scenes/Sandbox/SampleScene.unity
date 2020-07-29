@@ -1264,6 +1264,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6454084193812727559, guid: f8cd73f05a53ce94cb97c0d0916851ad, type: 3}
+      propertyPath: targetName
+      value: Uncle Bob
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8cd73f05a53ce94cb97c0d0916851ad, type: 3}
 --- !u!1001 &2195992976833445988
@@ -1277,10 +1281,6 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 736320038, guid: 76779b08f3a2bb84498446658742b35a, type: 3}
-      propertyPath: move
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5783446534960176961, guid: 76779b08f3a2bb84498446658742b35a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
