@@ -4,12 +4,11 @@ using UnityEngine.AI;
 public class Move : MonoBehaviour
 {
   // [SerializeField] GameObject target;
-  [SerializeField] Camera camera;
 
   Ray lastRay;
-
   NavMeshAgent agent;
   Animator animator;
+
   private void Start()
   {
     agent = GetComponent<NavMeshAgent>();
@@ -19,32 +18,14 @@ public class Move : MonoBehaviour
 
   private void Update()
   {
-
-
     UpdateAnimator();
     // Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
   }
 
-  private void LateUpdate()
+
+  public void MoveTo(Vector3 destination)
   {
-    if (Input.GetMouseButton(0))
-    {
-      MoveToCursor();
-    }
-  }
-
-  private void MoveToCursor()
-  {
-    Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-    // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    RaycastHit hit;
-
-    bool hasHit = Physics.Raycast(ray, out hit);
-
-    if (hasHit)
-    {
-      agent.destination = hit.point;
-    }
+    agent.destination = destination;
   }
 
   private void UpdateAnimator()
