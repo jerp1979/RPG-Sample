@@ -21,7 +21,7 @@ namespace RPG.Control
     {
       if (InteractWithCombat()) return;
 
-      InteractWithMovement();
+      if (InteractWithMovement()) return;
 
     }
 
@@ -45,15 +45,7 @@ namespace RPG.Control
       return false;
     }
 
-    private void InteractWithMovement()
-    {
-      if (Input.GetMouseButton(0))
-      {
-        MoveToCursor();
-      }
-    }
-
-    private void MoveToCursor()
+    private bool InteractWithMovement()
     {
       RaycastHit hit;
 
@@ -61,8 +53,12 @@ namespace RPG.Control
 
       if (hasHit)
       {
-        move.MoveTo(hit.point);
+        if (Input.GetMouseButton(0))
+        {
+          move.MoveTo(hit.point);
+        }
       }
+      return hasHit;
     }
 
     private Ray GetMouseRay()
