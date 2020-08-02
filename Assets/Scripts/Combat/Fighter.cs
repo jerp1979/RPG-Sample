@@ -1,20 +1,53 @@
+using UnityEngine;
+using RPG.Movement;
+using RPG.Core;
 
 namespace RPG.Combat
 {
-  using UnityEngine;
+
+
 
   public class Fighter : MonoBehaviour
   {
-    public void Attack(CombatTarget target)
+    [SerializeField] private float weaponRange = 2f;
+    Transform target = null;
+
+    ActionSchedular actionSchedular;
+
+    private void Start()
     {
-      if (!string.IsNullOrEmpty(target.TargetName()))
+      actionSchedular = GetComponent<ActionSchedular>();
+    }
+
+    private void Update()
+    {
+
+      if (target == null) return;
+
+      if (!IsInRange())
       {
-        print($"Die, {target.TargetName()}");
+        GetComponent<Move>().MoveTo(target.position);
       }
       else
       {
-        print("Die, Rebel Scumm!!!");
+        GetComponent<Move>().Stop();
       }
+    }
+
+    private bool IsInRange()
+    {
+      return Vector3.Distance(transform.position, target.position) < weaponRange;
+    }
+
+    public void Attack(CombatTarget target)
+    {
+      actionSchedular.StartAction(this);
+      this.target = target.transform;
+    }
+
+    public void Cancel()
+    {
+      target = null;
     }
   }
 }

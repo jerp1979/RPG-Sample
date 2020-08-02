@@ -1,5 +1,7 @@
+using RPG.Combat;
 using UnityEngine;
 using UnityEngine.AI;
+using RPG.Core;
 
 namespace RPG.Movement
 {
@@ -10,11 +12,13 @@ namespace RPG.Movement
     Ray lastRay;
     NavMeshAgent agent;
     Animator animator;
+    ActionSchedular actionSchedular;
 
     private void Start()
     {
       agent = GetComponent<NavMeshAgent>();
       animator = GetComponent<Animator>();
+      actionSchedular = GetComponent<ActionSchedular>();
       // agent.destination = target.transform.position;
     }
 
@@ -24,9 +28,22 @@ namespace RPG.Movement
       // Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
     }
 
+    public void StartMoveAction(Vector3 destination)
+    {
+      actionSchedular.StartAction(this);
+      GetComponent<Fighter>().Cancel();
+      MoveTo(destination);
+    }
+
     public void MoveTo(Vector3 destination)
     {
       agent.destination = destination;
+      agent.isStopped = false;
+    }
+
+    public void Stop()
+    {
+      agent.isStopped = true;
     }
 
     private void UpdateAnimator()
