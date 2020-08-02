@@ -19,26 +19,30 @@ namespace RPG.Control
 
     private void LateUpdate()
     {
-      InteractWithCombat();
+      if (InteractWithCombat()) return;
+
       InteractWithMovement();
+
     }
 
-    private void InteractWithCombat()
+    private bool InteractWithCombat()
     {
-      if (Input.GetMouseButtonDown(0))
+      RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+
+      foreach (RaycastHit hit in hits)
       {
+        var combatTarget = hit.transform.gameObject.GetComponent<CombatTarget>();
+        if (combatTarget == null) continue;
 
-        RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-
-        foreach (RaycastHit hit in hits)
+        if (Input.GetMouseButtonDown(0))
         {
-          var combatTarget = hit.transform.gameObject.GetComponent<CombatTarget>();
-          if (combatTarget != null)
-          {
-            fighter.Attack(combatTarget);
-          }
+          fighter.Attack(combatTarget);
         }
+
+        return true;
       }
+
+      return false;
     }
 
     private void InteractWithMovement()
