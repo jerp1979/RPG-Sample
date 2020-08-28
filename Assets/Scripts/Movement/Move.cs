@@ -1,11 +1,10 @@
-using RPG.Combat;
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
 
 namespace RPG.Movement
 {
-  public class Move : MonoBehaviour
+  public class Move : MonoBehaviour, IAction
   {
     // [SerializeField] GameObject target;
 
@@ -31,7 +30,6 @@ namespace RPG.Movement
     public void StartMoveAction(Vector3 destination)
     {
       actionSchedular.StartAction(this);
-      GetComponent<Fighter>().Cancel();
       MoveTo(destination);
     }
 
@@ -41,7 +39,7 @@ namespace RPG.Movement
       agent.isStopped = false;
     }
 
-    public void Stop()
+    public void Cancel()
     {
       agent.isStopped = true;
     }
@@ -55,5 +53,6 @@ namespace RPG.Movement
 
       animator.SetFloat("forwardSpeed", speed);
     }
+
   }
 }

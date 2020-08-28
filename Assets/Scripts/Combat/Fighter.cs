@@ -7,7 +7,7 @@ namespace RPG.Combat
 
 
 
-  public class Fighter : MonoBehaviour
+  public class Fighter : MonoBehaviour, IAction
   {
     [SerializeField] private float weaponRange = 2f;
     Transform target = null;
@@ -30,7 +30,7 @@ namespace RPG.Combat
       }
       else
       {
-        GetComponent<Move>().Stop();
+        GetComponent<Move>().Cancel();
       }
     }
 
